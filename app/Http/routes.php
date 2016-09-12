@@ -20,6 +20,23 @@ Route::post('/signup',['uses'=>'UserController@postSignUp','as'=>'signup']);
 Route::post('/signin',['uses'=>'UserController@postSignIn','as'=>'signin']);
 //logout
 Route::get('/logout',['uses'=>'UserController@getLogout','as'=>'logout']);
+
+//account
+Route::get('/account',[
+	'uses'=>'UserController@getAccount',
+	'as'=>'account'
+	]);
+
+Route::post('/updateaccount',[
+	'uses'=>'UserController@postSaveAccount',
+	'as'=>'account.save'
+	]);
+
+Route::get('/userimage/{$filename}',[
+	'uses'=>'UserController@getUserImage',
+	'as'=>'account.image'
+	]);
+
 // redirect to dashboard
 Route::get('/dashboard',[
 	'uses'=>'PostController@getDashboard',
@@ -33,6 +50,13 @@ Route::post('/createpost',[
 
 Route::get('/delete-post/{$id?}',['uses' => 'PostController@destroy','as' => 'post.destroy']);
 
-Route::post('/edit', function(\Illuminate\Http\Request $request) {
-	return response()->json(['message'=>$request['postId']]);
-})->name('edit');
+Route::post('/edit',[
+	'uses'=>'PostController@postEditPost',
+	'as'=>'edit'
+	]);
+
+Route::post('like',[
+	'uses'=>'PostController@postLikePost',
+	'as'=>'like'
+	]);
+
